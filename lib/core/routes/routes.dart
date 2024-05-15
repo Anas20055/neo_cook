@@ -1,6 +1,6 @@
-import 'package:cook_app/feature%20/auth/presentation/login_page/login_page.dart';
-import 'package:cook_app/feature%20/auth/presentation/sing_up_page/sing_up_page.dart';
-import 'package:cook_app/feature%20/main/presentation/home_page.dart';
+import 'package:cook_app/feature/auth/presentation/login_page/login_page.dart';
+import 'package:cook_app/feature/auth/presentation/sing_up_page/sing_up_page.dart';
+import 'package:cook_app/feature/main/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppRouteNames {
@@ -10,6 +10,8 @@ abstract class AppRouteNames {
 }
 
 abstract class AppRoutes {
+  static initialRoute(bool isAuth) =>
+      isAuth ? AppRouteNames.homePage : AppRouteNames.login;
   static Route onGenerateRoutes(RouteSettings settings) {
     return switch (settings.name) {
       AppRouteNames.homePage => _materialRoute(const HomePage()),

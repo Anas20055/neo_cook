@@ -1,22 +1,41 @@
+import 'package:cook_app/app/data/data_source/local/shared_preff.dart';
+import 'package:cook_app/core/di/injection_container.dart';
 import 'package:cook_app/core/routes/routes.dart';
+import 'package:cook_app/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_app/core/constants/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 part "core/theme/theme.dart";
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDependencies();
+  final localRepo = MyLocalRepo();
+  await localRepo.checkAuth();
+  runApp(
+    MyApp(
+      localRepo: localRepo,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final MyLocalRepo localRepo;
+  const MyApp({
+    super.key,
+    required this.localRepo,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: AppRouteNames.login,
-      onGenerateRoute: AppRoutes.onGenerateRoutes,
-      theme: _theme(),
+    return BlocProvider(
+      create: (context) => sl<AuthCubit>(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.initialRoute(localRepo.isAuth),
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
+        theme: _theme(),
+      ),
     );
   }
 }
