@@ -25,10 +25,14 @@ class AuthCubit extends Cubit<AuthState> {
       await sessionDataProvider.setSessionId(token.token);
       emit(Authorized(token));
     } on DioException catch (e) {
-      if (e.response?.statusCode == 409) {
-        emit(const AuthError('User with that email already exists'));
+      if (e.response?.statusCode == 404) {
+        emit(const AuthError('User doesn\'t exist'));
+      } else if (e.response?.statusCode == 400) {
+        emit(const AuthError('Wrong email and password'));
+      } else if (e.response?.statusCode == 403) {
+        emit(const AuthError('User is not verified,please verify your email'));
       } else {
-        emit(const AuthError('Someting went wrong try it again'));
+        emit(const AuthError('Someting went wrong try it again later'));
       }
     }
   }
@@ -39,12 +43,10 @@ class AuthCubit extends Cubit<AuthState> {
       final successMessage = await registerUseCase.call(params: request);
       emit(AuthSuccess(successMessage));
     } on DioException catch (e) {
-      if (e.response?.statusCode == 400) {
-        emit(const AuthError('User doesn\'t exist'));
-      } else if (e.response?.statusCode == 404) {
-        emit(const AuthError('Wrong email and password'));
+      if (e.response?.statusCode == 409) {
+        emit(const AuthError('User with that email already exists'));
       } else {
-        emit(const AuthError('Someting went wrong try it again'));
+        emit(const AuthError('Someting went wrong try it again later'));
       }
     }
   }

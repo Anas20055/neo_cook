@@ -1,12 +1,14 @@
 import 'package:cook_app/feature/auth/presentation/login_page/login_page.dart';
 import 'package:cook_app/feature/auth/presentation/sing_up_page/sing_up_page.dart';
-import 'package:cook_app/feature/main/presentation/home_page.dart';
+import 'package:cook_app/feature/main/presentation/home_navigation_bar.dart';
+import 'package:cook_app/feature/main/presentation/recipe_detail_screen/reciep_detail_scree.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppRouteNames {
   static const login = '/login';
   static const register = '/login/register';
   static const homePage = '/';
+  static const detailScreen = '/detail';
 }
 
 abstract class AppRoutes {
@@ -14,9 +16,10 @@ abstract class AppRoutes {
       isAuth ? AppRouteNames.homePage : AppRouteNames.login;
   static Route onGenerateRoutes(RouteSettings settings) {
     return switch (settings.name) {
-      AppRouteNames.homePage => _materialRoute(const HomePage()),
+      AppRouteNames.homePage => _materialRoute(const HomeNavigationBar()),
       AppRouteNames.login => _materialRoute(const LoginPage()),
       AppRouteNames.register => _materialRoute(const SingUpPage()),
+      AppRouteNames.detailScreen => _materialRoute(const ReciepDetailScreen()),
       _ => _materialRoute(const LoginPage()),
     };
   }

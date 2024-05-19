@@ -73,32 +73,52 @@ ThemeData _theme() {
     appBarTheme: _appBarThem(),
     colorScheme: const ColorScheme.light(),
     textTheme: const TextTheme(
-      labelLarge: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w500,
-      ),
-      labelMedium: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
-      ),
-      labelSmall: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-      ),
-      bodySmall: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-      ),
-      headlineLarge: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w300,
-        color: Colors.white,
-      ),
-      headlineMedium: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: AppColors.orange,
-      ),
+        labelLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w500,
+        ),
+        labelMedium: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+        labelSmall: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
+        bodySmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
+        headlineLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w300,
+          color: Colors.white,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.orange,
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w400,
+          color: Colors.white,
+        ),
+        bodyMedium: TextStyle(fontSize: 10, color: Colors.white)),
+    tabBarTheme: const TabBarTheme(
+      tabAlignment: TabAlignment.start,
+      labelPadding: EdgeInsets.only(right: 50),
+      labelColor: Colors.black,
+      labelStyle: TextStyle(fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
+      unselectedLabelStyle: TextStyle(
+          fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Poppins'),
+      unselectedLabelColor: AppColors.grey,
+      overlayColor: MaterialStatePropertyAll(Colors.white),
+      indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(
+            width: 2,
+          ),
+          insets: EdgeInsets.symmetric(horizontal: 27.0, vertical: 15)),
     ),
   );
 }
