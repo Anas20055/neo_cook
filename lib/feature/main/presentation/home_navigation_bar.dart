@@ -1,6 +1,7 @@
 import 'package:cook_app/core/constants/app_colors.dart';
 import 'package:cook_app/core/constants/app_svg.dart';
 import 'package:cook_app/feature/main/presentation/home_page/home_page.dart';
+import 'package:cook_app/feature/profile/presentation/profile_page/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -14,9 +15,9 @@ class HomeNavigationBar extends StatefulWidget {
 class _HomeNavigationBarState extends State<HomeNavigationBar> {
   int _currentIndex = 0;
   final body = [
-    const Center(child: HomePage()),
-    const Center(child: Text('second')),
+    const HomePage(),
     const Center(child: Text('third')),
+    const ProfilePage(),
   ];
   void _onTab(int index) {
     setState(() {
@@ -36,9 +37,7 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
       activeIcon: Padding(
         padding: const EdgeInsets.only(top: 19),
         child: SvgPicture.asset(
-          AppSvg.search,
-          colorFilter:
-              const ColorFilter.mode(AppColors.orange, BlendMode.srcIn),
+          AppSvg.searchField,
         ),
       ),
       icon: Padding(

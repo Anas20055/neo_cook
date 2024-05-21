@@ -1,4 +1,4 @@
-import 'package:cook_app/app/data/data_source/local/shared_preff.dart';
+import 'package:cook_app/feature/auth/data/data_source/local/shared_preff.dart';
 import 'package:cook_app/core/di/injection_container.dart';
 import 'package:cook_app/core/routes/routes.dart';
 import 'package:cook_app/feature/auth/presentation/cubit/auth_cubit.dart';

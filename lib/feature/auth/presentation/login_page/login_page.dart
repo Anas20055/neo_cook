@@ -1,8 +1,8 @@
-import 'package:cook_app/app/presentation/common_widgets/snack_bar.dart';
-import 'package:cook_app/app/presentation/common_widgets/text_field.dart';
-import 'package:cook_app/app/presentation/common_widgets/tittle_widget.dart';
+import 'package:cook_app/core/common_widgets/snack_bar.dart';
+import 'package:cook_app/core/common_widgets/text_field.dart';
+import 'package:cook_app/core/common_widgets/tittle_widget.dart';
 import 'package:cook_app/core/constants/app_colors.dart';
-import 'package:cook_app/core/mixins/validate_mixin.dart';
+import 'package:cook_app/core/utils/validate_mixin.dart';
 import 'package:cook_app/core/routes/routes.dart';
 import 'package:cook_app/feature/auth/domain/entity/auth_request.dart';
 import 'package:cook_app/feature/auth/presentation/cubit/auth_cubit.dart';
@@ -36,16 +36,7 @@ class _LoginPageState extends State<LoginPage> with CustomTextFieldValidator {
     final theme = Theme.of(context).textTheme;
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
-          if (state is AuthError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(CustomSnackBar.customSnackBar(
-              text: state.error!,
-            ));
-          } else if (state is Authorized) {
-            Navigator.pushReplacementNamed(context, AppRouteNames.homePage);
-          }
-        },
+        listener: authListener,
         builder: (context, state) {
           return Stack(
             children: [
@@ -165,6 +156,16 @@ class _LoginPageState extends State<LoginPage> with CustomTextFieldValidator {
         },
       ),
     );
+  }
+
+  void authListener(context, state) {
+    if (state is AuthError) {
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar.customSnackBar(
+        text: state.error!,
+      ));
+    } else if (state is Authorized) {
+      Navigator.pushReplacementNamed(context, AppRouteNames.homePage);
+    }
   }
 
   void onPressed() {

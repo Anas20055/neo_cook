@@ -14,16 +14,16 @@ class MyGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return GridView.builder(
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 16.0,
-          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 14.0,
+          crossAxisSpacing: 14.0,
           mainAxisExtent: 209,
         ),
-        itemCount: 2,
+        itemCount: 10,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => _onTab(context),

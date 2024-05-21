@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cook_app/app/data/data_source/app_api.dart';
+import 'package:cook_app/feature/auth/data/data_source/app_api.dart';
 import 'package:cook_app/feature/auth/domain/entity/auth_request.dart';
 import 'package:cook_app/feature/auth/domain/entity/token_entity.dart';
 import 'package:cook_app/feature/auth/domain/repository/auth_repo.dart';

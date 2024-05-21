@@ -1,5 +1,5 @@
-import 'package:cook_app/app/data/data_source/app_api.dart';
-import 'package:cook_app/app/data/data_source/local/shared_preff.dart';
+import 'package:cook_app/feature/auth/data/data_source/app_api.dart';
+import 'package:cook_app/feature/auth/data/data_source/local/shared_preff.dart';
 import 'package:cook_app/feature/auth/data/repository/auth_repo_impl.dart';
 import 'package:cook_app/feature/auth/domain/repository/auth_repo.dart';
 import 'package:cook_app/feature/auth/domain/usecases/login_usecase.dart';

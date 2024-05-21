@@ -1,5 +1,6 @@
 import 'package:cook_app/feature/auth/presentation/login_page/login_page.dart';
 import 'package:cook_app/feature/auth/presentation/sing_up_page/sing_up_page.dart';
+import 'package:cook_app/feature/main/presentation/author_page/author_page.dart';
 import 'package:cook_app/feature/main/presentation/home_navigation_bar.dart';
 import 'package:cook_app/feature/main/presentation/recipe_detail_screen/reciep_detail_scree.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ abstract class AppRouteNames {
   static const register = '/login/register';
   static const homePage = '/';
   static const detailScreen = '/detail';
+  static const authorPage = '/author';
 }
 
 abstract class AppRoutes {
@@ -20,6 +22,7 @@ abstract class AppRoutes {
       AppRouteNames.login => _materialRoute(const LoginPage()),
       AppRouteNames.register => _materialRoute(const SingUpPage()),
       AppRouteNames.detailScreen => _materialRoute(const ReciepDetailScreen()),
+      AppRouteNames.authorPage => _materialRoute(const AuthorPage()),
       _ => _materialRoute(const LoginPage()),
     };
   }
