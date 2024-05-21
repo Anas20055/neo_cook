@@ -1,7 +1,9 @@
 import 'package:cook_app/core/common_widgets/grid_view.dart';
 import 'package:cook_app/core/common_widgets/tittle_widget.dart';
+import 'package:cook_app/feature/main/presentation/cubit/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +13,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  @override
+  void initState() {
+    context.read<MainCubit>().getRecipes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(
@@ -30,19 +38,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   children: [
                     Text(
                       'Hi, ',
-                      style: theme.headlineSmall,
+                      style: theme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                      ),
                     ),
                     Text(
-                      'Sarthak',
-                      style: theme.headlineSmall?.copyWith(
+                      'Anas',
+                      style: theme.labelMedium?.copyWith(
                         fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                   ],
                 ),
                 Text(
                   'UI Designer & Cook',
-                  style: theme.headlineSmall,
+                  style: theme.labelMedium?.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -61,20 +76,50 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: tabBar(tabController),
         ),
         SliverToBoxAdapter(
-          child: SizedBox(
-            height: 223 * 5,
-            child: TabBarView(
-              controller: tabController,
-              children: [
-                MyGrid(),
-                MyGrid(),
-                MyGrid(),
-              ],
-            ),
+          child: BlocBuilder<MainCubit, MainState>(
+            builder: (context, state) {
+              if (state is MainLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return SizedBox(
+                height: tabBarViewHeight(state),
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    MyGrid(recipes: state.breakfast ?? []),
+                    MyGrid(recipes: state.lunch ?? []),
+                    MyGrid(recipes: state.dinner ?? []),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ],
     );
+  }
+
+  double tabBarViewHeight(MainState state) {
+    num num1 = state.breakfast?.length ?? 0;
+    num num2 = state.dinner?.length ?? 0;
+    num num3 = state.lunch?.length ?? 0;
+
+    double height = 0;
+
+    if (num1 >= num2 && num1 >= num3) {
+      height = num1.toDouble();
+    } else if (num2 >= num1 && num2 >= num3) {
+      height = num2.toDouble();
+    } else {
+      height = num3.toDouble();
+    }
+
+    if (height % 2 == 0) {
+      return (height / 2) * 223;
+    }
+    return (height ~/ 2 + 1) * 223;
   }
 
   TabBar tabBar(

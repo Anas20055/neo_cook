@@ -37,6 +37,8 @@ class _SingUpPageState extends State<SingUpPage> with CustomTextFieldValidator {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final headlineMedium =
+        theme.headlineMedium?.copyWith(color: AppColors.orange);
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: authListener,
@@ -74,7 +76,7 @@ class _SingUpPageState extends State<SingUpPage> with CustomTextFieldValidator {
                           children: [
                             Text(
                               'Name',
-                              style: theme.headlineMedium,
+                              style: headlineMedium,
                             ),
                             const SizedBox(height: 5),
                             MyTextField(
@@ -90,7 +92,7 @@ class _SingUpPageState extends State<SingUpPage> with CustomTextFieldValidator {
                             const SizedBox(height: 16),
                             Text(
                               'Gmail',
-                              style: theme.headlineMedium,
+                              style: headlineMedium,
                             ),
                             const SizedBox(height: 5),
                             MyTextField(
@@ -106,7 +108,7 @@ class _SingUpPageState extends State<SingUpPage> with CustomTextFieldValidator {
                             const SizedBox(height: 16),
                             Text(
                               'Password',
-                              style: theme.headlineMedium,
+                              style: headlineMedium,
                             ),
                             const SizedBox(height: 5),
                             MyTextField(
@@ -128,7 +130,7 @@ class _SingUpPageState extends State<SingUpPage> with CustomTextFieldValidator {
                             const SizedBox(height: 16),
                             Text(
                               'Re-Password',
-                              style: theme.headlineMedium,
+                              style: headlineMedium,
                             ),
                             const SizedBox(height: 5),
                             MyTextField(
@@ -159,13 +161,13 @@ class _SingUpPageState extends State<SingUpPage> with CustomTextFieldValidator {
                               children: [
                                 Text(
                                   'Already have an account?',
-                                  style: theme.bodySmall,
+                                  style: theme.bodyMedium,
                                 ),
                                 GestureDetector(
                                   onTap: onNavigate,
                                   child: Text(
                                     ' Sign In Now',
-                                    style: theme.bodySmall?.copyWith(
+                                    style: theme.bodyMedium?.copyWith(
                                       color: AppColors.orange,
                                       fontWeight: FontWeight.w500,
                                     ),

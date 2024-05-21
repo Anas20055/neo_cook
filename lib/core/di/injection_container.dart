@@ -5,6 +5,12 @@ import 'package:cook_app/feature/auth/domain/repository/auth_repo.dart';
 import 'package:cook_app/feature/auth/domain/usecases/login_usecase.dart';
 import 'package:cook_app/feature/auth/domain/usecases/register_usecase.dart';
 import 'package:cook_app/feature/auth/presentation/cubit/auth_cubit.dart';
+import 'package:cook_app/feature/main/data/data_source/main_api.dart';
+import 'package:cook_app/feature/main/data/repository/repo_impl.dart';
+import 'package:cook_app/feature/main/domain/repository/repo.dart';
+import 'package:cook_app/feature/main/domain/usecases/get_detail_recipe_usecase.dart';
+import 'package:cook_app/feature/main/domain/usecases/get_recipe_usecase.dart';
+import 'package:cook_app/feature/main/presentation/cubit/main_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:dio/dio.dart';
@@ -18,9 +24,14 @@ final sl = GetIt.instance;
 Future<void> initializeDependencies() async {
   final dio = _buildDioClient('http://164.92.125.200:8080/api');
   sl.registerSingleton<AppApi>(AppApi(dio));
+  sl.registerSingleton<MainApi>(MainApi(dio));
+  sl.registerSingleton<SessionDataProvider>(SessionDataProvider());
   sl.registerSingleton<AuthRepo>(AuthRepoImpl(sl()));
+  sl.registerSingleton<MainRepo>(MainRepoImpl(sl(), sl()));
+  sl.registerSingleton<GetRecipesUsecase>(GetRecipesUsecase(sl()));
   sl.registerSingleton<LoginUseCase>(LoginUseCase(sl()));
   sl.registerSingleton<RegisterUseCase>(RegisterUseCase(sl()));
-  sl.registerSingleton<SessionDataProvider>(SessionDataProvider());
+  sl.registerSingleton<GetDetailRecipeUsecase>(GetDetailRecipeUsecase(sl()));
   sl.registerSingleton<AuthCubit>(AuthCubit(sl(), sl(), sl()));
+  sl.registerSingleton<MainCubit>(MainCubit(sl(), sl()));
 }

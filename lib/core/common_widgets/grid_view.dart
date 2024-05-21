@@ -2,12 +2,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cook_app/core/constants/app_svg.dart';
 import 'package:cook_app/core/routes/routes.dart';
+import 'package:cook_app/feature/main/domain/entity/recipe_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MyGrid extends StatelessWidget {
+  final List<RecipeEntity> recipes;
   const MyGrid({
     super.key,
+    required this.recipes,
   });
 
   @override
@@ -23,17 +26,18 @@ class MyGrid extends StatelessWidget {
           crossAxisSpacing: 14.0,
           mainAxisExtent: 209,
         ),
-        itemCount: 10,
+        itemCount: recipes.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () => _onTab(context),
+            onTap: () => _onTab(context, index),
             child: Container(
               alignment: Alignment.bottomCenter,
               decoration: BoxDecoration(
-                image: const DecorationImage(
+                image: DecorationImage(
                   fit: BoxFit.cover,
                   image: CachedNetworkImageProvider(
-                      'https://s3-alpha-sig.figma.com/img/f2b2/a0f4/bca297ef579e6efc869bdd2d06414c28?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OKWBY77Ua2aT7xznTbTPTtSdVR4I0-ZXXK6wrCkO4DzAibm9fiWFhDYkA0-YiAcxEFAivW55Ts2cLyQ5-71tXTWbT9w4RxjFyuxXc8FYqrKYw6407505baVqsmlFY5KCIJ7tnKw8N3J4CP~xebCkt8rq7Ui0qrDgXyhrmEH2GB1ZGP~uikuHH9m6ewdXMCoY6pLqe64kFyYcju6ShgSW1lUF4w05bmizAKG7Xv7AnPeoFj2kkdd~7dTC7GR3E7~Cls-m--UQauajfhWO4h3fHjtNz-plVY8nirvKDL~K6KtfhjAH0x07bCcwRI90LVmr7YJXg8LhhDY5fzyz1xLVNw__'),
+                    recipes[index].imagePath,
+                  ),
                 ),
                 borderRadius: BorderRadius.circular(15),
               ),
@@ -44,14 +48,17 @@ class MyGrid extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'Egg Omlet',
-                      style:
-                          theme.headlineMedium?.copyWith(color: Colors.white),
+                      recipes[index].name,
+                      style: theme.headlineMedium?.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      'by Ainsley Harriott',
-                      style: theme.bodyMedium,
+                      'by ${recipes[index].author}',
+                      style: theme.bodySmall?.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -59,15 +66,19 @@ class MyGrid extends StatelessWidget {
                         SvgPicture.asset(AppSvg.heart),
                         const SizedBox(width: 4),
                         Text(
-                          '118',
-                          style: theme.bodyMedium?.copyWith(fontSize: 12),
+                          '${recipes[index].likes}',
+                          style: theme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
                         const SizedBox(width: 4),
                         SvgPicture.asset(AppSvg.save),
                         const SizedBox(width: 4),
                         Text(
-                          '118',
-                          style: theme.bodyMedium?.copyWith(fontSize: 12),
+                          '${recipes[index].saves}',
+                          style: theme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     )
@@ -79,7 +90,11 @@ class MyGrid extends StatelessWidget {
         });
   }
 
-  void _onTab(context) {
-    Navigator.pushNamed(context, AppRouteNames.detailScreen);
+  void _onTab(context, int index) {
+    Navigator.pushNamed(
+      context,
+      AppRouteNames.detailScreen,
+      arguments: recipes[index].id,
+    );
   }
 }

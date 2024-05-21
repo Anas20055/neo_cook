@@ -2,6 +2,7 @@ import 'package:cook_app/feature/auth/data/data_source/local/shared_preff.dart';
 import 'package:cook_app/core/di/injection_container.dart';
 import 'package:cook_app/core/routes/routes.dart';
 import 'package:cook_app/feature/auth/presentation/cubit/auth_cubit.dart';
+import 'package:cook_app/feature/main/presentation/cubit/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_app/core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +29,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<AuthCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<AuthCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<MainCubit>(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.initialRoute(localRepo.isAuth),

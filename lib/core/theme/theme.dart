@@ -86,8 +86,12 @@ ThemeData _theme() {
           fontWeight: FontWeight.w400,
         ),
         bodySmall: TextStyle(
-          fontSize: 12,
+          fontSize: 10,
           fontWeight: FontWeight.w400,
+        ),
+        bodyLarge: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
         ),
         headlineLarge: TextStyle(
           fontSize: 24,
@@ -97,14 +101,10 @@ ThemeData _theme() {
         headlineMedium: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: AppColors.orange,
         ),
-        headlineSmall: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-          color: Colors.white,
-        ),
-        bodyMedium: TextStyle(fontSize: 10, color: Colors.white)),
+        bodyMedium: TextStyle(
+          fontSize: 12,
+        )),
     tabBarTheme: const TabBarTheme(
       tabAlignment: TabAlignment.start,
       labelPadding: EdgeInsets.only(right: 50),

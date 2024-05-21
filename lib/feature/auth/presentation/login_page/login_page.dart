@@ -34,6 +34,8 @@ class _LoginPageState extends State<LoginPage> with CustomTextFieldValidator {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final headlineMedium =
+        theme.headlineMedium?.copyWith(color: AppColors.orange);
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: authListener,
@@ -72,7 +74,7 @@ class _LoginPageState extends State<LoginPage> with CustomTextFieldValidator {
                           children: [
                             Text(
                               'Gmail',
-                              style: theme.headlineMedium,
+                              style: headlineMedium,
                             ),
                             const SizedBox(height: 5),
                             MyTextField(
@@ -88,7 +90,7 @@ class _LoginPageState extends State<LoginPage> with CustomTextFieldValidator {
                             const SizedBox(height: 16),
                             Text(
                               'Password',
-                              style: theme.headlineMedium,
+                              style: headlineMedium,
                             ),
                             const SizedBox(height: 5),
                             MyTextField(
@@ -121,13 +123,13 @@ class _LoginPageState extends State<LoginPage> with CustomTextFieldValidator {
                               children: [
                                 Text(
                                   'I don’t have an account?',
-                                  style: theme.bodySmall,
+                                  style: theme.bodyMedium,
                                 ),
                                 GestureDetector(
                                   onTap: onNavigate,
                                   child: Text(
                                     ' Sign Up Now',
-                                    style: theme.bodySmall?.copyWith(
+                                    style: theme.bodyMedium?.copyWith(
                                       color: AppColors.orange,
                                       fontWeight: FontWeight.w500,
                                     ),

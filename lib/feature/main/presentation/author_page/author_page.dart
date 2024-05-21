@@ -3,7 +3,6 @@ import 'package:cook_app/core/common_widgets/grid_view.dart';
 import 'package:cook_app/core/constants/app_colors.dart';
 import 'package:cook_app/core/constants/app_svg.dart';
 import 'package:cook_app/feature/main/presentation/author_page/widgets/custom_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,6 +18,7 @@ class _AuthorPageState extends State<AuthorPage> {
   int followers = 144;
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -29,9 +29,7 @@ class _AuthorPageState extends State<AuthorPage> {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                      onPressed: onBack,
                       icon: const Icon(
                         size: 14,
                         Icons.arrow_back_ios_new_rounded,
@@ -54,35 +52,37 @@ class _AuthorPageState extends State<AuthorPage> {
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'Ainsley Harriott',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
+                style: theme.headlineMedium,
               ),
               const SizedBox(height: 12),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  authorInfo(tilte: '29', subTitle: 'Recipe'),
+                  authorInfo(
+                    tilte: '29',
+                    subTitle: 'Recipe',
+                  ),
                   const SizedBox(width: 17),
-                  authorInfo(tilte: '$followers', subTitle: 'Followers'),
+                  authorInfo(
+                    tilte: '$followers',
+                    subTitle: 'Followers',
+                  ),
                   const SizedBox(width: 17),
-                  authorInfo(tilte: '100', subTitle: 'Following'),
+                  authorInfo(
+                    tilte: '100',
+                    subTitle: 'Following',
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   textAlign: TextAlign.center,
                   'Ainsley Denzil Dubriel Harriott MBE is an English chef and television presenter. He is known for his BBC cookinп',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.grey,
-                  ),
+                  style: theme.labelSmall,
                 ),
               ),
               const SizedBox(height: 20),
@@ -97,7 +97,9 @@ class _AuthorPageState extends State<AuthorPage> {
                           children: [
                             const Text(
                               'Followed',
-                              style: TextStyle(color: AppColors.orange),
+                              style: TextStyle(
+                                color: AppColors.orange,
+                              ),
                             ),
                             const SizedBox(width: 10),
                             SvgPicture.asset(AppSvg.check),
@@ -107,7 +109,9 @@ class _AuthorPageState extends State<AuthorPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              const MyGrid(),
+              const MyGrid(
+                recipes: [],
+              ),
             ],
           ),
         ),
@@ -124,6 +128,10 @@ class _AuthorPageState extends State<AuthorPage> {
         followers++;
       }
     });
+  }
+
+  void onBack() {
+    Navigator.pop(context);
   }
 
   Widget authorInfo({

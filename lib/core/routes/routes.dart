@@ -21,7 +21,8 @@ abstract class AppRoutes {
       AppRouteNames.homePage => _materialRoute(const HomeNavigationBar()),
       AppRouteNames.login => _materialRoute(const LoginPage()),
       AppRouteNames.register => _materialRoute(const SingUpPage()),
-      AppRouteNames.detailScreen => _materialRoute(const ReciepDetailScreen()),
+      AppRouteNames.detailScreen =>
+        _materialRoute(ReciepDetailScreen(id: settings.arguments as int)),
       AppRouteNames.authorPage => _materialRoute(const AuthorPage()),
       _ => _materialRoute(const LoginPage()),
     };
