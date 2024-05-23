@@ -1,5 +1,6 @@
 import 'package:cook_app/core/common_widgets/grid_view.dart';
 import 'package:cook_app/core/common_widgets/tittle_widget.dart';
+import 'package:cook_app/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:cook_app/feature/main/presentation/cubit/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -43,12 +44,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         color: Colors.white,
                       ),
                     ),
-                    Text(
-                      'Anas',
-                      style: theme.labelMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                    BlocBuilder<AuthCubit, AuthState>(
+                      builder: (context, state) {
+                        return Text(
+                          state.token?.userName ?? '',
+                          style: theme.labelMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

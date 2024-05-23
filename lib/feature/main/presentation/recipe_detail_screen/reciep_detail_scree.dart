@@ -23,14 +23,9 @@ class ReciepDetailScreen extends StatefulWidget {
 }
 
 class _ReciepDetailScreenState extends State<ReciepDetailScreen> {
-  bool like = false;
-  bool save = false;
-  int likes = 0;
-
   @override
   void initState() {
     context.read<MainCubit>().getDetailRecipe(id: widget.id);
-    likes = context.read<MainCubit>().state.detailRecipe?.likes ?? 0;
     super.initState();
   }
 
@@ -61,7 +56,8 @@ class _ReciepDetailScreenState extends State<ReciepDetailScreen> {
                           height: 249,
                           child: CachedNetworkImage(
                               fit: BoxFit.cover,
-                              imageUrl: state.detailRecipe?.imagePath ?? ''),
+                              imageUrl: state.detailRecipe?.imagePath ??
+                                  'https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg'),
                         ),
                       ],
                     ),
@@ -125,7 +121,7 @@ class _ReciepDetailScreenState extends State<ReciepDetailScreen> {
                               ),
                             ),
                             child: Text(
-                              'Easy',
+                              state.detailRecipe?.difficulty ?? '',
                               style: theme.bodyMedium,
                             ),
                           ),
@@ -147,18 +143,20 @@ class _ReciepDetailScreenState extends State<ReciepDetailScreen> {
                                 children: [
                                   GestureDetector(
                                     onTap: onLike,
-                                    child: like
+                                    child: state.detailRecipe?.liked ?? false
                                         ? SvgPicture.asset(
                                             AppSvg.heartButtonField)
                                         : SvgPicture.asset(AppSvg.heartButton),
                                   ),
                                   const SizedBox(width: 5),
-                                  Text('$likes likes', style: theme.bodyMedium),
+                                  Text(
+                                      '${state.detailRecipe?.likes ?? 0} likes',
+                                      style: theme.bodyMedium),
                                 ],
                               ),
                               GestureDetector(
                                 onTap: onSave,
-                                child: save
+                                child: state.detailRecipe?.saved ?? false
                                     ? SvgPicture.asset(AppSvg.saveButtonField)
                                     : SvgPicture.asset(AppSvg.saveButton),
                               ),
@@ -242,19 +240,10 @@ class _ReciepDetailScreenState extends State<ReciepDetailScreen> {
   }
 
   void onLike() {
-    setState(() {
-      like = !like;
-      if (!like) {
-        likes--;
-      } else {
-        likes++;
-      }
-    });
+    context.read<MainCubit>().likeRecipe(id: widget.id);
   }
 
   void onSave() {
-    setState(() {
-      save = !save;
-    });
+    context.read<MainCubit>().saveRecipe(id: widget.id);
   }
 }

@@ -14,6 +14,9 @@ class DetailRecipeModel extends DetailRecipeEntity {
     required super.likes,
     required super.description,
     required List<IngredientsModel> super.ingredients,
+    required super.difficulty,
+    required super.liked,
+    required super.saved,
   });
 
   factory DetailRecipeModel.fromJson(Map<String, dynamic> json) {
@@ -30,6 +33,9 @@ class DetailRecipeModel extends DetailRecipeEntity {
       likes: json['likes'],
       description: json['description'],
       ingredients: ingredientList,
+      difficulty: json['difficulty'],
+      liked: json['liked'],
+      saved: json['saved'],
     );
   }
   Map<String, dynamic> toJson() {
@@ -45,6 +51,8 @@ class DetailRecipeModel extends DetailRecipeEntity {
       'ingredients': ingredients
           .map((ingredient) => (ingredient as IngredientsModel).toJson())
           .toList(),
+      'saved': saved,
+      'liked': liked
     };
   }
 }

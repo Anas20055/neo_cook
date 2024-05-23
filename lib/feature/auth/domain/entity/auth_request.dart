@@ -7,11 +7,11 @@ part 'auth_request.g.dart';
 @JsonSerializable()
 class RegisterRequest extends Equatable {
   final String email;
-  final String username;
+  final String name;
   final String password;
   const RegisterRequest({
     required this.email,
-    required this.username,
+    required this.name,
     required this.password,
   });
 

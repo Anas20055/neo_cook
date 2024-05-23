@@ -8,8 +8,11 @@ import 'package:cook_app/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:cook_app/feature/main/data/data_source/main_api.dart';
 import 'package:cook_app/feature/main/data/repository/repo_impl.dart';
 import 'package:cook_app/feature/main/domain/repository/repo.dart';
+import 'package:cook_app/feature/main/domain/usecases/get_author_usecase.dart';
 import 'package:cook_app/feature/main/domain/usecases/get_detail_recipe_usecase.dart';
 import 'package:cook_app/feature/main/domain/usecases/get_recipe_usecase.dart';
+import 'package:cook_app/feature/main/domain/usecases/like_recipe_usecase.dart';
+import 'package:cook_app/feature/main/domain/usecases/save_recipe_usecase.dart';
 import 'package:cook_app/feature/main/presentation/cubit/main_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -32,6 +35,9 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<LoginUseCase>(LoginUseCase(sl()));
   sl.registerSingleton<RegisterUseCase>(RegisterUseCase(sl()));
   sl.registerSingleton<GetDetailRecipeUsecase>(GetDetailRecipeUsecase(sl()));
+  sl.registerSingleton<SaveRecipeUsecase>(SaveRecipeUsecase(sl()));
+  sl.registerSingleton<LikeRecipeUsecase>(LikeRecipeUsecase(sl()));
+  sl.registerSingleton<GetAuthorUsecase>(GetAuthorUsecase(sl()));
   sl.registerSingleton<AuthCubit>(AuthCubit(sl(), sl(), sl()));
-  sl.registerSingleton<MainCubit>(MainCubit(sl(), sl()));
+  sl.registerSingleton<MainCubit>(MainCubit(sl(), sl(), sl(), sl(), sl()));
 }

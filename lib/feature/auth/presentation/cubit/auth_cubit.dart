@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cook_app/feature/auth/data/data_source/local/shared_preff.dart';
+import 'package:cook_app/feature/auth/data/model/token_model.dart';
 import 'package:cook_app/feature/auth/domain/entity/auth_request.dart';
 import 'package:cook_app/feature/auth/domain/entity/token_entity.dart';
 import 'package:cook_app/feature/auth/domain/usecases/login_usecase.dart';
@@ -22,7 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(const AuthWaiting());
     try {
       final token = await loginUseCase.call(params: request);
-      await sessionDataProvider.setSessionId(token.token);
+      await sessionDataProvider.setSessionId(TokenModel.fromEntity(token));
       emit(Authorized(token));
     } on DioException catch (e) {
       if (e.response?.statusCode == 404) {
@@ -54,5 +57,11 @@ class AuthCubit extends Cubit<AuthState> {
   void logout() async {
     await sessionDataProvider.setSessionId(null);
     emit(const AuthInitial());
+  }
+
+  void getUser() async {
+    final token = await sessionDataProvider.getSessionId();
+    final Map<String, dynamic> model = jsonDecode(token!);
+    emit(Authorized(TokenModel.fromJson(model)));
   }
 }

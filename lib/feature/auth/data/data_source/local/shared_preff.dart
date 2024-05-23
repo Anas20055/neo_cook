@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cook_app/feature/auth/data/model/token_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyLocalRepo {
@@ -17,10 +20,10 @@ class SessionDataProvider {
     return prefs.getString('token');
   }
 
-  Future<void> setSessionId(String? value) async {
+  Future<void> setSessionId(TokenModel? value) async {
     final prefs = await SharedPreferences.getInstance();
     if (value != null) {
-      await prefs.setString('token', value);
+      await prefs.setString('token', jsonEncode(value.toJson()));
     } else {
       await prefs.remove('token');
     }

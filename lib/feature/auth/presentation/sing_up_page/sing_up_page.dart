@@ -251,7 +251,7 @@ class _SingUpPageState extends State<SingUpPage> with CustomTextFieldValidator {
     context.read<AuthCubit>().register(RegisterRequest(
           email: emailController.text,
           password: passwordController.text,
-          username: nameController.text,
+          name: nameController.text,
         ));
   }
 

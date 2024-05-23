@@ -19,10 +19,26 @@ abstract class MainApi {
   Future<HttpResponse<DetailRecipeModel>> getDetailRecipe(
     @Path("id") int id,
     @Header('Authorization') String token,
+    @Query('userId') int userId,
   );
+
   @GET("/user/byId/{id}")
   Future<HttpResponse<AuthorModel>> getAuthor(
     @Path("id") int id,
     @Header('Authorization') String token,
+  );
+
+  @POST("/recipes/{id}/save")
+  Future<void> saveRecipe(
+    @Path("id") int id,
+    @Header('Authorization') String token,
+    @Query('userId') int userId,
+  );
+
+  @POST("/recipes/{id}/like")
+  Future<void> likeRecipe(
+    @Path("id") int id,
+    @Header('Authorization') String token,
+    @Query('userId') int userId,
   );
 }
