@@ -7,6 +7,8 @@ Dio _buildDioClient(String base) {
   final dio = Dio(options);
   final talker = TalkerFlutter.init();
   dio.interceptors.add(TalkerDioLogger(
-      settings: const TalkerDioLoggerSettings(), talker: talker));
+      settings: const TalkerDioLoggerSettings(
+          printRequestHeaders: true, printResponseHeaders: true),
+      talker: talker));
   return dio;
 }

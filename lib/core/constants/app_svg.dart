@@ -11,6 +11,8 @@ abstract class AppSvg {
       'assets/svg/Property 1=solar_bookmark-bold.svg';
   static const check = 'assets/svg/solar_check-square-linear.svg';
   static const searchField = 'assets/svg/search (1) 2.svg';
+  static const logout = 'assets/svg/material-symbols_logout.svg';
+  static const camera = 'assets/svg/solar_camera-broken.svg';
   static const clock1 = '';
   static const clock2 = '';
 }

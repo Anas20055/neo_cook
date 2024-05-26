@@ -3,6 +3,7 @@ import 'package:cook_app/core/di/injection_container.dart';
 import 'package:cook_app/core/routes/routes.dart';
 import 'package:cook_app/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:cook_app/feature/main/presentation/cubit/main_cubit.dart';
+import 'package:cook_app/feature/profile/presentation/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_app/core/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => sl<MainCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<ProfileCubit>(),
         ),
       ],
       child: MaterialApp(

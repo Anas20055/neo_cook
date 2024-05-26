@@ -9,7 +9,11 @@ abstract class MainState extends Equatable {
   final DetailRecipeEntity? detailRecipe;
   final AuthorEntity? author;
   final String? error;
+  final List<RecipeEntity>? authorRecipe;
+  final bool? isFollowing;
   const MainState({
+    this.authorRecipe,
+    this.isFollowing,
     this.name,
     this.breakfast,
     this.lunch,
@@ -32,10 +36,8 @@ class MainLoading extends MainState {}
 
 class MainLoadingDetail extends MainState {}
 
-class MainAuthorLoading extends MainState {}
-
-class MainSaveLike extends MainState {
-  const MainSaveLike({
+class MainAuthorLoading extends MainState {
+  const MainAuthorLoading({
     super.detailRecipe,
     super.breakfast,
     super.lunch,
@@ -43,13 +45,28 @@ class MainSaveLike extends MainState {
   });
 }
 
+class MainSaveLikeFollow extends MainState {
+  const MainSaveLikeFollow({
+    super.detailRecipe,
+    super.breakfast,
+    super.lunch,
+    super.dinner,
+    super.isFollowing,
+    super.authorRecipe,
+    super.author,
+  });
+}
+
 class MainDone extends MainState {
-  const MainDone(
-      {super.breakfast,
-      super.lunch,
-      super.dinner,
-      super.detailRecipe,
-      super.author});
+  const MainDone({
+    super.breakfast,
+    super.lunch,
+    super.dinner,
+    super.detailRecipe,
+    super.author,
+    super.isFollowing,
+    super.authorRecipe,
+  });
 }
 
 class MainError extends MainState {

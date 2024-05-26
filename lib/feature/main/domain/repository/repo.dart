@@ -8,4 +8,7 @@ abstract class MainRepo {
   Future<void> saveRecipe({required int id});
   Future<void> likeRecipe({required int id});
   Future<AuthorEntity> getAuthor({required int id});
+  Future<List<RecipeEntity>> getAuthorRecipes({required int id});
+  Future<void> follow({required int id});
+  Future<bool> isFollowing({required int id});
 }

@@ -125,10 +125,10 @@ ThemeData _theme() {
 
 AppBarTheme _appBarThem() {
   return const AppBarTheme(
-    centerTitle: true,
     scrolledUnderElevation: 0,
     titleTextStyle: TextStyle(
-      fontSize: 16,
+      fontSize: 22,
+      fontFamily: 'Poppins',
       color: Colors.black,
       fontWeight: FontWeight.w500,
     ),

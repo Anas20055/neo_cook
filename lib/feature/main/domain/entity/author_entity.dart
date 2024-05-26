@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 class AuthorEntity extends Equatable {
@@ -30,6 +31,26 @@ class AuthorEntity extends Equatable {
         followingsCount,
         bio,
       ];
+
+  AuthorEntity copyWith({
+    int? id,
+    String? imagePath,
+    String? name,
+    int? recipesCount,
+    int? followersCount,
+    int? followingsCount,
+    String? bio,
+  }) {
+    return AuthorEntity(
+      id: id ?? this.id,
+      imagePath: imagePath ?? this.imagePath,
+      name: name ?? this.name,
+      recipesCount: recipesCount ?? this.recipesCount,
+      followersCount: followersCount ?? this.followersCount,
+      followingsCount: followingsCount ?? this.followingsCount,
+      bio: bio ?? this.bio,
+    );
+  }
 }
 
 // {

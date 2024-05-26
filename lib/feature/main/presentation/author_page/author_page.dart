@@ -1,27 +1,30 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+
 import 'package:cook_app/core/common_widgets/grid_view.dart';
 import 'package:cook_app/core/constants/app_colors.dart';
 import 'package:cook_app/core/constants/app_svg.dart';
 import 'package:cook_app/feature/main/presentation/author_page/widgets/custom_button.dart';
 import 'package:cook_app/feature/main/presentation/cubit/main_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class AuthorPage extends StatefulWidget {
-  const AuthorPage({super.key});
+  final int id;
+  const AuthorPage({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<AuthorPage> createState() => _AuthorPageState();
 }
 
 class _AuthorPageState extends State<AuthorPage> {
-  bool pressed = false;
-  int followers = 144;
-
   @override
   void initState() {
-    context.read<MainCubit>().getAuthor(id: 1);
+    context.read<MainCubit>().getAuthor(id: widget.id);
     super.initState();
   }
 
@@ -106,9 +109,9 @@ class _AuthorPageState extends State<AuthorPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CustomButton(
-                      pressed: pressed,
+                      pressed: state.isFollowing ?? false,
                       onPressed: onPressed,
-                      child: pressed
+                      child: state.isFollowing ?? false
                           ? Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -126,9 +129,7 @@ class _AuthorPageState extends State<AuthorPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const MyGrid(
-                    recipes: [],
-                  ),
+                  MyGrid(recipes: state.authorRecipe!),
                 ],
               ),
             ),
@@ -139,14 +140,7 @@ class _AuthorPageState extends State<AuthorPage> {
   }
 
   void onPressed() {
-    setState(() {
-      pressed = !pressed;
-      if (!pressed) {
-        followers--;
-      } else {
-        followers++;
-      }
-    });
+    context.read<MainCubit>().follow(id: widget.id);
   }
 
   void onBack() {

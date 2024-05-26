@@ -127,7 +127,8 @@ class _ReciepDetailScreenState extends State<ReciepDetailScreen> {
                           ),
                           const SizedBox(height: 16),
                           GestureDetector(
-                            onTap: onAuthorPressed,
+                            onTap: () => onAuthorPressed(
+                                state.detailRecipe?.authorId ?? 1),
                             child: Text(
                               'by ${state.detailRecipe?.author ?? ''}',
                               style: theme.bodyMedium?.copyWith(
@@ -235,8 +236,8 @@ class _ReciepDetailScreenState extends State<ReciepDetailScreen> {
     Navigator.pop(context);
   }
 
-  void onAuthorPressed() {
-    Navigator.pushNamed(context, AppRouteNames.authorPage);
+  void onAuthorPressed(int id) {
+    Navigator.pushNamed(context, AppRouteNames.authorPage, arguments: id);
   }
 
   void onLike() {

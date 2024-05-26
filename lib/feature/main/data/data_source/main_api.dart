@@ -41,4 +41,24 @@ abstract class MainApi {
     @Header('Authorization') String token,
     @Query('userId') int userId,
   );
+
+  @GET("/user/{id}/recipes")
+  Future<HttpResponse<List<RecipeModel>>> getAuthorRecipes(
+    @Header('Authorization') String token,
+    @Path("id") int id,
+  );
+
+  @POST("/user/follow")
+  Future<void> follow(
+    @Header('Authorization') String token,
+    @Query('followerId') int followerId,
+    @Query('followingId') int followingId,
+  );
+
+  @GET("/user/isFollowing")
+  Future<bool> isFollowing(
+    @Header('Authorization') String token,
+    @Query('followerId') int followerId,
+    @Query('followingId') int followingId,
+  );
 }
